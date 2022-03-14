@@ -3,4 +3,5 @@
 Go to api and ui folder
 
 Run npm install
+
 Then run "npm run start"
