@@ -18,39 +18,48 @@ body {
 }
 
 .root-container {
-  margin: 0 auto;
-  max-width: 768px;
-  padding: 20px 40px;
+  margin: 0 0;
+  padding: 10px 10px;
 }
 
-.add-product-form {
+.onSubmit_form {
   display: flex;
   flex-wrap: wrap;
   margin: 20px 0;
 }
 
-.add-product-form .form-element-container {
+.onSubmit_form .form-element-container {
   width: 50%;
   display: flex;
   flex-flow: column;
   margin-bottom: 10px;
 }
 
-.add-product-form label {
+.onSubmit_form label {
   margin-bottom: 10px;
 }
 
-.add-product-form input,
-.add-product-form select {
+.onSubmit_form input,
+.onSubmit_form select {
   width: 200px;
   padding: 5px;
 }
 
-.table {
+/* .table {
   border-collapse: collapse;
   width: 100%;
   margin: 10px 0 20px;
+} */
+
+table.bordered-table th, td {
+  border: 1px solid rgb(49, 92, 128);
+  padding: 20px;
 }
+
+table.bordered-table {
+  border-collapse: collapse;
+}
+
 
 .submit-button {
   margin-top: 10px;
@@ -58,7 +67,7 @@ body {
 
 /* Media queries for mid-size devices or smaller */
 @media (max-width: 768px) {
-  .add-product-form {
+  .onSubmit_form {
     flex-flow: column;
   }
 }

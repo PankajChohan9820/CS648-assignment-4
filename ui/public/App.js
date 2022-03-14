@@ -67,11 +67,7 @@ var ProductTable = function ProductTable(_ref2) {
       loading = _ref2.loading;
   return /*#__PURE__*/React.createElement("table", {
     className: "table"
-  }, /*#__PURE__*/React.createElement("thead", null, /*#__PURE__*/React.createElement("tr", null, headings.map(function (heading) {
-    return /*#__PURE__*/React.createElement("th", {
-      key: heading
-    }, heading);
-  }))), /*#__PURE__*/React.createElement("tbody", null, products.length > 0 ? products.map(function (product) {
+  }, /*#__PURE__*/React.createElement("thead", null, /*#__PURE__*/React.createElement("th", null, "Product Name"), /*#__PURE__*/React.createElement("th", null, "Price"), /*#__PURE__*/React.createElement("th", null, "Category"), /*#__PURE__*/React.createElement("th", null, "Image")), /*#__PURE__*/React.createElement("tbody", null, products.length > 0 ? products.map(function (product) {
     return /*#__PURE__*/React.createElement(ProductTableRow, {
       key: product.product_id,
       product: product
@@ -144,7 +140,7 @@ var ProductAdd = /*#__PURE__*/function (_React$Component) {
       return /*#__PURE__*/React.createElement("form", {
         name: "addProduct",
         onSubmit: this.handleSubmit,
-        className: "add-product-form"
+        className: "onSubmit_form"
       }, /*#__PURE__*/React.createElement("div", {
         className: "form-element-container"
       }, /*#__PURE__*/React.createElement("label", {
@@ -365,7 +361,7 @@ var ProductList = /*#__PURE__*/function (_React$Component2) {
           loading = _this$state.loading;
       return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement("div", {
         className: "root-container"
-      }, /*#__PURE__*/React.createElement("h2", null, "My Company Inventory"), /*#__PURE__*/React.createElement("div", null, "Showing all available products"), /*#__PURE__*/React.createElement("hr", null), /*#__PURE__*/React.createElement(ProductTable, {
+      }, /*#__PURE__*/React.createElement("h2", null, "My Company Inventory"), /*#__PURE__*/React.createElement("h3", null, "Showing all available products"), /*#__PURE__*/React.createElement("hr", null), /*#__PURE__*/React.createElement(ProductTable, {
         headings: productTableHeadings,
         products: products,
         loading: loading

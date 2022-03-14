@@ -25,12 +25,17 @@ const ProductTableRow = ({ product }) => {
 
 const ProductTable = ({ headings, products, loading }) => (
   <table className="table">
-    <thead>
+    {/* <thead>
       <tr>
         {headings.map(heading => <th key={heading}>{heading}</th>)}
       </tr>
+    </thead> */}
+    <thead>
+      <th>Product Name</th>
+      <th>Price</th>
+      <th>Category</th>
+      <th>Image</th>
     </thead>
-
     <tbody>
       {products.length > 0 ? (
         products.map(product => <ProductTableRow key={product.product_id} product={product} />)
@@ -83,9 +88,9 @@ class ProductAdd extends React.Component {
   render() {
     const { product_price } = this.state;
     return (
-      <form name="addProduct" onSubmit={this.handleSubmit} className="add-product-form">
+      <form name="addProduct" onSubmit={this.handleSubmit} className="onSubmit_form">
         <div className="form-element-container">
-          <label htmlFor="product_category">Category</label>
+          <label htmlFor="product_category" >Category</label>
           <select name="product_category">
             {
               productCategories.map(({ product_id, product_name }) => (
@@ -191,7 +196,10 @@ class ProductList extends React.Component {
       <React.Fragment>
         <div className="root-container">
           <h2>My Company Inventory</h2>
-          <div>Showing all available products</div>
+          {/* <div>Showing all available products</div> */}
+          
+          <h3>Showing all available products</h3>
+
           <hr />
           <ProductTable
             headings={productTableHeadings}
