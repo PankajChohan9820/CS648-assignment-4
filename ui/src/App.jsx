@@ -1,24 +1,24 @@
 const { React, ReactDOM } = window;
 const productTableHeadings = ['Product Name', 'Price', 'Category', 'Image'];
 const productCategories = [
-  { id: 1, name: 'Shirts' },
-  { id: 2, name: 'Jeans' },
-  { id: 3, name: 'Jackets' },
-  { id: 4, name: 'Sweaters' },
-  { id: 5, name: 'Accessories' },
+  { product_id: 1, product_name: 'Shirts' },
+  { product_id: 2, product_name: 'Jeans' },
+  { product_id: 3, product_name: 'Jackets' },
+  { product_id: 4, product_name: 'Sweaters' },
+  { product_id: 5, product_name: 'Accessories' },
 ];
 const NO_DATA = '';
 
 const ProductTableRow = ({ product }) => {
   const {
-    name, price, category, imageUrl,
+    product_name, product_price, product_category, product_image,
   } = product;
   return (
     <tr>
-      <td>{name || NO_DATA}</td>
-      <td>{price ? `${price}` : NO_DATA}</td>
-      <td>{category}</td>
-      <td>{imageUrl ? <a href={imageUrl} target="_blank" rel="noreferrer">View</a> : NO_DATA}</td>
+      <td>{product_name || NO_DATA}</td>
+      <td>{product_price ? `${product_price}` : NO_DATA}</td>
+      <td>{product_category}</td>
+      <td>{product_image ? <a href={product_image} target="_blank" rel="noreferrer">View</a> : NO_DATA}</td>
     </tr>
   );
 };
@@ -33,7 +33,7 @@ const ProductTable = ({ headings, products, loading }) => (
 
     <tbody>
       {products.length > 0 ? (
-        products.map(product => <ProductTableRow key={product.id} product={product} />)
+        products.map(product => <ProductTableRow key={product.product_id} product={product} />)
       ) : (
         <tr className="text-center">
           <td colSpan="4">{loading ? 'Loading Products' : 'No Products added yet'}</td>
@@ -47,7 +47,7 @@ class ProductAdd extends React.Component {
   constructor() {
     super();
     this.state = {
-      price: '$',
+      product_price: '$',
     };
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handlePriceChange = this.handlePriceChange.bind(this);
@@ -57,57 +57,57 @@ class ProductAdd extends React.Component {
     event.preventDefault();
     const { addProduct } = this.props;
     const {
-      name, price, category, imageUrl,
+      product_name, product_price, product_category, product_image,
     } = document.forms.addProduct;
-    const priceWithoutDollar = price.value.substring(1); // Getting value without '$'
+    const priceWithoutDollar = product_price.value.substring(1); // Getting value without '$'
 
     const product = {
-      name: name.value,
-      price: parseFloat(priceWithoutDollar),
-      category: category.value,
-      imageUrl: imageUrl.value,
+      product_name: product_name.value,
+      product_price: parseFloat(priceWithoutDollar),
+      product_category: product_category.value,
+      product_image: product_image.value,
     };
     addProduct(product);
 
-    name.value = '';
-    category.value = 'Shirts';
-    imageUrl.value = '';
-    this.setState({ price: '$' });
+    product_name.value = '';
+    product_category.value = 'Shirts';
+    product_image.value = '';
+    this.setState({ product_price: '$' });
   }
 
   handlePriceChange(event) {
     const priceWithoutDollar = event.target.value.substring(1); // Getting value without '$'
-    this.setState({ price: `$${priceWithoutDollar}` });
+    this.setState({ product_price: `$${priceWithoutDollar}` });
   }
 
   render() {
-    const { price } = this.state;
+    const { product_price } = this.state;
     return (
       <form name="addProduct" onSubmit={this.handleSubmit} className="add-product-form">
         <div className="form-element-container">
-          <label htmlFor="category">Category</label>
-          <select name="category">
+          <label htmlFor="product_category">Category</label>
+          <select name="product_category">
             {
-              productCategories.map(({ id, name }) => (
-                <option key={id} id={id} value={name}>{name}</option>
+              productCategories.map(({ product_id, product_name }) => (
+                <option key={product_id} id={product_id} value={product_name}>{product_name}</option>
               ))
             }
           </select>
         </div>
 
         <div className="form-element-container">
-          <label htmlFor="price">Price Per Unit</label>
-          <input type="text" name="price" value={price} onChange={this.handlePriceChange} />
+          <label htmlFor="product_price">Price Per Unit</label>
+          <input type="text" name="product_price" value={product_price} onChange={this.handlePriceChange} />
         </div>
 
         <div className="form-element-container">
-          <label htmlFor="name">Product Name</label>
-          <input type="text" name="name" />
+          <label htmlFor="product_name">Product Name</label>
+          <input type="text" name="product_name" />
         </div>
 
         <div className="form-element-container">
-          <label htmlFor="imageUrl">Image URL</label>
-          <input type="text" name="imageUrl" />
+          <label htmlFor="product_image">Image URL</label>
+          <input type="text" name="product_image" />
         </div>
 
         <button type="submit" className="submit-button submit-button-dark">Add Product</button>
@@ -146,18 +146,19 @@ class ProductList extends React.Component {
   }
 
   componentDidMount() {
-    this.fetchProductList();
+    this.load();
   }
 
-  async fetchProductList() {
+  async load() {
+
     const query = `
             query {
                 productList {
-                    id
-                    name
-                    category
-                    price
-                    imageUrl
+                  product_id
+                  product_name
+                  product_category
+                  product_price
+                  product_image
                 }
             }
         `;
@@ -173,14 +174,14 @@ class ProductList extends React.Component {
     const query = `
             mutation addProduct($product: ProductInputs!) {
                 addProduct(product: $product) {
-                    id
+                  product_id
                 }
             }
         `;
 
     const data = await graphQLFetch(query, { product });
     if (data) {
-      this.fetchProductList();
+      this.load();
     }
   }
 

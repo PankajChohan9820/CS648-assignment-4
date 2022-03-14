@@ -17,9 +17,9 @@ const count = db.products.countDocuments();
 print('Inserted total of ', count, 'products');
 
 db.counters.deleteOne({ _id: 'products' });
-db.counters.insertOne({ _id: 'products', uid: count });
+db.counters.insertOne({ _id: 'products', Counter_id: count });
 
-db.products.createIndex({ id: 1 }, { unique: true });
-db.products.createIndex({ name: 1 });
-db.products.createIndex({ price: 1 });
-db.products.createIndex({ category: 1 });
+db.products.createIndex({ product_id: 1 }, { unique: true });
+db.products.createIndex({ product_name: 1 });
+db.products.createIndex({ product_price: 1 });
+db.products.createIndex({ product_category: 1 });

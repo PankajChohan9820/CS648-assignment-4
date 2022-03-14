@@ -12,26 +12,26 @@ const url = process.env.DB_URL
 
 let db;
 
-const uidForDocument = async (name) => {
+const CounteridForDocument = async (product_name) => {
   const result = await db
     .collection(COUNTERS)
     .findOneAndUpdate(
-      { _id: name },
+      { _id: product_name },
       {
-        $inc: { uid: 1 },
-        $set: { _id: name },
+        $inc: { Counter_id: 1 },
+        $set: { _id: product_name },
       },
       { returnOriginal: false, upsert: true },
 
     );
-  return result.value.uid;
+  return result.value.Counter_id;
 };
 
 const productList = async () => db.collection(PRODUCTS).find({}).toArray();
 
 const addProduct = async (_, { product }) => {
   const productInsert = { ...product };
-  productInsert.id = await uidForDocument(PRODUCTS);
+  productInsert.id = await CounteridForDocument(PRODUCTS);
   const result = await db.collection(PRODUCTS).insertOne(productInsert);
   return db
     .collection(PRODUCTS)

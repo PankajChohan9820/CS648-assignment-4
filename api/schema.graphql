@@ -7,18 +7,18 @@ enum Category {
 }
 
 type Product {
-  id: Int!
-  name: String!
-  category: Category!
-  price: Float
-  imageUrl: String
+    product_id: Int
+    product_name: String
+    product_category: Category!
+    product_price: Float!
+    product_image: String!
 }
 
 input ProductInputs {
-  name: String!
-  category: Category!
-  price: Float
-  imageUrl: String
+    product_name: String
+    product_category: Category!
+    product_price: Float
+    product_image: String
 }
 
 ##### Top level declarations

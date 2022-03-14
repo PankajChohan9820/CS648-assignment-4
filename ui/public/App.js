@@ -31,31 +31,31 @@ var _window = window,
     ReactDOM = _window.ReactDOM;
 var productTableHeadings = ['Product Name', 'Price', 'Category', 'Image'];
 var productCategories = [{
-  id: 1,
-  name: 'Shirts'
+  product_id: 1,
+  product_name: 'Shirts'
 }, {
-  id: 2,
-  name: 'Jeans'
+  product_id: 2,
+  product_name: 'Jeans'
 }, {
-  id: 3,
-  name: 'Jackets'
+  product_id: 3,
+  product_name: 'Jackets'
 }, {
-  id: 4,
-  name: 'Sweaters'
+  product_id: 4,
+  product_name: 'Sweaters'
 }, {
-  id: 5,
-  name: 'Accessories'
+  product_id: 5,
+  product_name: 'Accessories'
 }];
-var NO_DATA = 'No Data';
+var NO_DATA = '';
 
 var ProductTableRow = function ProductTableRow(_ref) {
   var product = _ref.product;
-  var name = product.name,
-      price = product.price,
-      category = product.category,
-      imageUrl = product.imageUrl;
-  return /*#__PURE__*/React.createElement("tr", null, /*#__PURE__*/React.createElement("td", null, name || NO_DATA), /*#__PURE__*/React.createElement("td", null, price ? "".concat(price) : NO_DATA), /*#__PURE__*/React.createElement("td", null, category), /*#__PURE__*/React.createElement("td", null, imageUrl ? /*#__PURE__*/React.createElement("a", {
-    href: imageUrl,
+  var product_name = product.product_name,
+      product_price = product.product_price,
+      product_category = product.product_category,
+      product_image = product.product_image;
+  return /*#__PURE__*/React.createElement("tr", null, /*#__PURE__*/React.createElement("td", null, product_name || NO_DATA), /*#__PURE__*/React.createElement("td", null, product_price ? "".concat(product_price) : NO_DATA), /*#__PURE__*/React.createElement("td", null, product_category), /*#__PURE__*/React.createElement("td", null, product_image ? /*#__PURE__*/React.createElement("a", {
+    href: product_image,
     target: "_blank",
     rel: "noreferrer"
   }, "View") : NO_DATA));
@@ -73,7 +73,7 @@ var ProductTable = function ProductTable(_ref2) {
     }, heading);
   }))), /*#__PURE__*/React.createElement("tbody", null, products.length > 0 ? products.map(function (product) {
     return /*#__PURE__*/React.createElement(ProductTableRow, {
-      key: product.id,
+      key: product.product_id,
       product: product
     });
   }) : /*#__PURE__*/React.createElement("tr", {
@@ -95,7 +95,7 @@ var ProductAdd = /*#__PURE__*/function (_React$Component) {
 
     _this = _super.call(this);
     _this.state = {
-      price: '$'
+      product_price: '$'
     };
     _this.handleSubmit = _this.handleSubmit.bind(_assertThisInitialized(_this));
     _this.handlePriceChange = _this.handlePriceChange.bind(_assertThisInitialized(_this));
@@ -108,24 +108,24 @@ var ProductAdd = /*#__PURE__*/function (_React$Component) {
       event.preventDefault();
       var addProduct = this.props.addProduct;
       var _document$forms$addPr = document.forms.addProduct,
-          name = _document$forms$addPr.name,
-          price = _document$forms$addPr.price,
-          category = _document$forms$addPr.category,
-          imageUrl = _document$forms$addPr.imageUrl;
-      var priceWithoutDollar = price.value.substring(1); // Getting value without '$'
+          product_name = _document$forms$addPr.product_name,
+          product_price = _document$forms$addPr.product_price,
+          product_category = _document$forms$addPr.product_category,
+          product_image = _document$forms$addPr.product_image;
+      var priceWithoutDollar = product_price.value.substring(1); // Getting value without '$'
 
       var product = {
-        name: name.value,
-        price: parseFloat(priceWithoutDollar),
-        category: category.value,
-        imageUrl: imageUrl.value
+        product_name: product_name.value,
+        product_price: parseFloat(priceWithoutDollar),
+        product_category: product_category.value,
+        product_image: product_image.value
       };
       addProduct(product);
-      name.value = '';
-      category.value = 'Shirts';
-      imageUrl.value = '';
+      product_name.value = '';
+      product_category.value = 'Shirts';
+      product_image.value = '';
       this.setState({
-        price: '$'
+        product_price: '$'
       });
     }
   }, {
@@ -134,13 +134,13 @@ var ProductAdd = /*#__PURE__*/function (_React$Component) {
       var priceWithoutDollar = event.target.value.substring(1); // Getting value without '$'
 
       this.setState({
-        price: "$".concat(priceWithoutDollar)
+        product_price: "$".concat(priceWithoutDollar)
       });
     }
   }, {
     key: "render",
     value: function render() {
-      var price = this.state.price;
+      var product_price = this.state.product_price;
       return /*#__PURE__*/React.createElement("form", {
         name: "addProduct",
         onSubmit: this.handleSubmit,
@@ -148,40 +148,40 @@ var ProductAdd = /*#__PURE__*/function (_React$Component) {
       }, /*#__PURE__*/React.createElement("div", {
         className: "form-element-container"
       }, /*#__PURE__*/React.createElement("label", {
-        htmlFor: "category"
+        htmlFor: "product_category"
       }, "Category"), /*#__PURE__*/React.createElement("select", {
-        name: "category"
+        name: "product_category"
       }, productCategories.map(function (_ref3) {
-        var id = _ref3.id,
-            name = _ref3.name;
+        var product_id = _ref3.product_id,
+            product_name = _ref3.product_name;
         return /*#__PURE__*/React.createElement("option", {
-          key: id,
-          id: id,
-          value: name
-        }, name);
+          key: product_id,
+          id: product_id,
+          value: product_name
+        }, product_name);
       }))), /*#__PURE__*/React.createElement("div", {
         className: "form-element-container"
       }, /*#__PURE__*/React.createElement("label", {
-        htmlFor: "price"
+        htmlFor: "product_price"
       }, "Price Per Unit"), /*#__PURE__*/React.createElement("input", {
         type: "text",
-        name: "price",
-        value: price,
+        name: "product_price",
+        value: product_price,
         onChange: this.handlePriceChange
       })), /*#__PURE__*/React.createElement("div", {
         className: "form-element-container"
       }, /*#__PURE__*/React.createElement("label", {
-        htmlFor: "name"
+        htmlFor: "product_name"
       }, "Product Name"), /*#__PURE__*/React.createElement("input", {
         type: "text",
-        name: "name"
+        name: "product_name"
       })), /*#__PURE__*/React.createElement("div", {
         className: "form-element-container"
       }, /*#__PURE__*/React.createElement("label", {
-        htmlFor: "imageUrl"
+        htmlFor: "product_image"
       }, "Image URL"), /*#__PURE__*/React.createElement("input", {
         type: "text",
-        name: "imageUrl"
+        name: "product_image"
       })), /*#__PURE__*/React.createElement("button", {
         type: "submit",
         className: "submit-button submit-button-dark"
@@ -234,7 +234,7 @@ function _graphQLFetch() {
 
             if (result.errors) {
               error = result.errors[0];
-              alert('Error while quering for data - ', error);
+              alert('Error  - ', error);
             }
 
             data = result.data;
@@ -245,7 +245,7 @@ function _graphQLFetch() {
           case 14:
             _context3.prev = 14;
             _context3.t0 = _context3["catch"](2);
-            alert("Error in sending data to server: ".concat(_context3.t0.message));
+            alert("Error in server: ".concat(_context3.t0.message));
 
           case 17:
             return _context3.abrupt("return", jsonResult);
@@ -282,18 +282,18 @@ var ProductList = /*#__PURE__*/function (_React$Component2) {
   _createClass(ProductList, [{
     key: "componentDidMount",
     value: function componentDidMount() {
-      this.fetchProductList();
+      this.load();
     }
   }, {
-    key: "fetchProductList",
+    key: "load",
     value: function () {
-      var _fetchProductList = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee() {
+      var _load = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee() {
         var query, data;
         return regeneratorRuntime.wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
-                query = "\n            query {\n                productList {\n                    id\n                    name\n                    category\n                    price\n                    imageUrl\n                }\n            }\n        ";
+                query = "\n            query {\n                productList {\n                  product_id\n                  product_name\n                  product_category\n                  product_price\n                  product_image\n                }\n            }\n        ";
                 _context.next = 3;
                 return graphQLFetch(query);
 
@@ -315,11 +315,11 @@ var ProductList = /*#__PURE__*/function (_React$Component2) {
         }, _callee, this);
       }));
 
-      function fetchProductList() {
-        return _fetchProductList.apply(this, arguments);
+      function load() {
+        return _load.apply(this, arguments);
       }
 
-      return fetchProductList;
+      return load;
     }()
   }, {
     key: "addProduct",
@@ -330,7 +330,7 @@ var ProductList = /*#__PURE__*/function (_React$Component2) {
           while (1) {
             switch (_context2.prev = _context2.next) {
               case 0:
-                query = "\n            mutation addProduct($product: ProductInputs!) {\n                addProduct(product: $product) {\n                    id\n                }\n            }\n        ";
+                query = "\n            mutation addProduct($product: ProductInputs!) {\n                addProduct(product: $product) {\n                  product_id\n                }\n            }\n        ";
                 _context2.next = 3;
                 return graphQLFetch(query, {
                   product: product
@@ -340,7 +340,7 @@ var ProductList = /*#__PURE__*/function (_React$Component2) {
                 data = _context2.sent;
 
                 if (data) {
-                  this.fetchProductList();
+                  this.load();
                 }
 
               case 5:
